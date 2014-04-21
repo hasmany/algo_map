@@ -1,19 +1,18 @@
 module MapProj
-  @city = {}
-  @roads = {}
+
 
 # { city1 => city2, city2 => city1, :distance => distance}
-
+# initlize a road, two edges
   class Map
 
     attr_reader :name
     @@id = 0
 
-    def initialize(name,location)
+    def initialize(name)
       @@id +=1
       @name = name
       @id = @@id
-      @location = location
+
     end
 
     def addcity(name)
@@ -47,19 +46,62 @@ module MapProj
 
   end
 
-  class Distance
-    @@id = 0
-
-    def initialize(name)
-      @@id +=1
-    end
-
-  end
 
 
-end
 # a hash key, which is a road name. Will point to a list of destinations as it's value.
 
+
+  class Graph
+   @nodes = {}
+    def addNode(value)           # nodes represent city
+      node = Node.new(value)
+      @nodes[node.value] = node.edges
+
+    end
+
+    def removeNode(value)
+      @nodes.delete(value)
+    end
+
+    def addEdge(node_value_1, node_value_2, cost)
+
+      @nodes[node_value_1].addedge(nodevalue2, 200)
+      @nodes[node_value_2].addedge(nodevalue1, 200)
+
+    end
+
+    def removeEdge(node_value_1, node_value_2)
+      edges = @nodes[node_value_1].edges
+      edges[node_value_2].delete
+    end
+
+    # More methods here
+
+  end
+                  Austin = Node.new("Austin")
+                  LA = Node.new("LA")
+
+                  Graph.addEdge('Austin', 'LA', 200)
+
+  class Node
+
+    attr_accessor :edges, :value, :id
+    @@id = 0
+    def initialize(value)
+      @@id += 1
+      @id = @@id
+      @value = value
+      @edges = {} # hash to map connected Nodes to the associated cost
+    end
+
+    def addEdge(node, cost)
+      @edges[node] = cost
+    end
+
+    # More methods here
+  end
+
+end
 
 @city = {}
 @roads = {}
@@ -79,32 +121,8 @@ FEATURES::
 -Find Paths
 between Z-cities
 ::::::::::::::::::::::::::::
-#Keep note of everything you do in this project
 
 
-
-# module MapProj
-#   class Map
-#     @city = {}
-#     def create_city(name)
-#       @name = name
-#       # @city[name] = {}
-#     end
-
-#     def create_road(city1, city2, distance)
-#       # road connects between two cities
-#       roadArr = []
-#       roadArr << { city1 => city2, city2 => city1, :distance => distance}
-# {key=>{}}
-#     end
-
-#     def find_road(startingpoint,endingpoint)
-
-#     end
-
-#   end
-
-# end
 
 
 
