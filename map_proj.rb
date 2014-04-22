@@ -9,16 +9,25 @@ module MapProj
    attr_accessor :name
 
     def initialize(name)
+      #@nodes = {}    // SHEEZAN
       @name = name
     end
 
     def addNode(value)           # nodes represent city
       node = MapProj::Node.new(value)
-      @@nodes[node.value] = node.edges
+      @@nodes[value] = node
       node
+      # IF @NODES[VALUE].NIL?
+      #@nodes[value] = Node.new(value) //SHEEZAN
+      #end
     end
 
     def removeNode(value)
+      @@nodes[value].edges.each do |k,v|
+        @@nodes[k].edges.delete(value)
+      end
+
+
       @@nodes.delete(value)
     end
 
@@ -26,22 +35,46 @@ module MapProj
       @@nodes
     end
 
-    def addEdge(node_value_1, node_value_2, cost)
+    def nodes
+      @@nodes
+    end
 
-      @@nodes[node_value_1].addedge(node_value_2, 200)
-      @@nodes[node_value_2].addedge(node_value_1, 200)
+# @edge ={oppoist node=> cost}
+    def addEdge(node_value_1, node_value_2, cost)
+       # graph is just holding data
+       # find two nodes, call addedage on each node in here
+       # node1 = @nodes[node_value_1]
+       # node2 = @nodes[node_value_2]
+       # node1.addEdge(node2,cost)
+
+       @@nodes[node_value_1].addEdge(node_value_2, cost)
+       @@nodes[node_value_2].addEdge(node_value_1, cost)
+
+       # node2.addEdge(node1,cost)
 
     end
 
     def removeEdge(node_value_1, node_value_2)
       edges = @@nodes[node_value_1].edges
       edges[node_value_2].delete
+
+      node1.removeEdge(node2)
+      node2.removeEdge(node1)
     end
 
     # More methods here
+    def findShortestDistance(node1, node2)
+      discovered = []
+      solved = []
+
+
+
+
+    end
 
   end
 
+# remove nodes, and delete all connections to and from the node
 
   class Node
 
@@ -55,10 +88,14 @@ module MapProj
     end
 
     def addEdge(node, cost)
+
       @edges[node] = cost
     end
 
     # More methods here
+    def removeEdge(node)
+      @edges.delete(node)
+    end
   end
 
 end
