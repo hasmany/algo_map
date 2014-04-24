@@ -69,10 +69,19 @@ describe MapProj::Graph do
 
   it "find the shortest distance between to cities" do
     map = MapProj::Graph.new("map")
-    node1 = map.addNode("Austin")
-    node2 = map.addNode("Dallas")
-    map.addEdge('Austin', 'Dallas', 600)
+    node1 = map.addNode("Houston")
+    node2 = map.addNode("Austin")
+    node2 = map.addNode("OKC")
+    node2 = map.addNode("Miami")
+    map.addEdge('Houston', 'Austin', 600)
+    map.addEdge('Houston', 'OKC', 300)
+    map.addEdge('Houston', 'Miami', 400)
+
+
+
+    expect(map.findShortestDistance("Houston","Austin")).to eq 600
   end
+
 
 
 
